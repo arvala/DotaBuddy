@@ -16,6 +16,11 @@ public class Item {
 		return DotaBuddy.skillsOfAHeroByID(id);
 	}
 	
+	//lis‰‰ tietokantaan t‰m‰n Skill-olion
+	public void lisaaItemTietokantaan(){
+		DotaBuddy.addSkilluser(this);
+	}
+	
 	//palauttaa itemin merkkijonoesityksen
 	public String toString() {
 		return "Item [Name=" + name + ", ID=" + id + "]";
