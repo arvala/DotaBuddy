@@ -1,4 +1,4 @@
-import java.beans.Statement;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -255,6 +255,7 @@ public class DotaBuddy {
 			System.out.println("Virhe: " + e);
 		}
 		return skill;
+	}
 
 		public static ArrayList<Skill> skillManacostSmallerThan(int x){
 			ArrayList<Skill> skill = new ArrayList<Skill>();
@@ -293,4 +294,4 @@ public class DotaBuddy {
 			return skill;
 		}
 	}
-}
+
