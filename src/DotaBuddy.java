@@ -106,7 +106,8 @@ public class DotaBuddy {
 	public static Connection alusta() {
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
-			kanta = DriverManager.getConnection("jdbc:postgresql:Dota2Database", "postgres", "1234");
+
+			kanta = DriverManager.getConnection("jdbc:postgresql:Dota2Database", "postgres", "admin");
 		}
 		catch (Exception e) {
 			System.out.println("Virhe tietokantakerroksessa: " + e);
