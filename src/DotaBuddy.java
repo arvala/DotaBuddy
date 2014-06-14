@@ -1,8 +1,6 @@
-import java.sql.Statement;
 import java.util.ArrayList;
-
-
 import java.sql.*;
+
 public class DotaBuddy {
 
 	private static Connection kanta = null;
@@ -273,7 +271,6 @@ public class DotaBuddy {
 				System.out.println("Virhe: " + e);
 			}
 			return skill;
-
 		}
 
 		public static ArrayList<Skill> skillManacostBiggerThan(int x){
