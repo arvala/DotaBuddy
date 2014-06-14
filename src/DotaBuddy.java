@@ -106,7 +106,6 @@ public class DotaBuddy {
 	public static Connection alusta() {
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
-
 			kanta = DriverManager.getConnection("jdbc:postgresql:Dota2Database", "postgres", "admin");
 		}
 		catch (Exception e) {
@@ -139,13 +138,10 @@ public class DotaBuddy {
 			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = '"+heroName+"' AND SKILLUSER.ID = SKILL.UserID AND SKILL.ID LIKE '%1';";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-
 				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
-
 			}
 			tulos.close();
 			lause.close();
-
 		}catch (Exception e){
 			System.out.println("Virhe: " + e);
 		}
@@ -168,7 +164,6 @@ public class DotaBuddy {
 			}
 			tulos.close();
 			lause.close();
-
 		}catch (Exception e){
 			System.out.println("Virhe: " + e);
 		}
@@ -187,13 +182,10 @@ public class DotaBuddy {
 			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = '"+heroName+"' AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-
 				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
-
 			}
 			tulos.close();
 			lause.close();
-
 		}catch (Exception e){
 			System.out.println("Virhe: " + e);
 		}
@@ -212,13 +204,10 @@ public class DotaBuddy {
 			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Manacost, Cooldown, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = '"+heroID+"' AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-
 				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
-
 			}
 			tulos.close();
 			lause.close();
-
 		}catch (Exception e){
 			System.out.println("Virhe: " + e);
 		}
@@ -400,7 +389,6 @@ public class DotaBuddy {
 			}
 			tulos.close();
 			lause.close();
-
 		}catch (Exception e){
 			System.out.println("Virhe: " + e);
 		}
@@ -423,7 +411,6 @@ public class DotaBuddy {
 			}
 			tulos.close();
 			lause.close();
-
 		}catch (Exception e){
 			System.out.println("Virhe: " + e);
 		}
@@ -446,7 +433,6 @@ public class DotaBuddy {
 			}
 			tulos.close();
 			lause.close();
-
 		}catch (Exception e){
 			System.out.println("Virhe: " + e);
 		}
