@@ -16,7 +16,7 @@ public class Item {
 		return DotaBuddy.skillsOfAHeroByID(id);
 	}
 	
-	//lis‰‰ tietokantaan t‰m‰n Skill-olion
+	//lis‰‰ tietokantaan t‰m‰n Skilluser-olion
 	public void lisaaItemTietokantaan(){
 		DotaBuddy.addSkilluser(this);
 	}
