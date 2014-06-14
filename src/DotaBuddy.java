@@ -4,7 +4,11 @@ import java.sql.*;
 public class DotaBuddy {
 
 	private static Connection kanta = null;
-	
+
+	/**
+	 * Alustaa tietokantayhteyden.
+	 * @return Connection
+	 */
 	public static Connection alusta() {
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
@@ -15,7 +19,10 @@ public class DotaBuddy {
 		}
 		return kanta;
 	}
-		
+
+	/**
+	 * Sulkee tietokantayhteyden.
+	 */
 	public static void sulje() {
 		try {
 			kanta.close();
@@ -24,13 +31,12 @@ public class DotaBuddy {
 			System.out.println("Virhe tietokantakerroksessa: " + e);
 		}
 	}
-	
 
-/**
- * Metodi hakee tietokannasta syötteenä saamansa nimen mukaisen heron kaikki ensimmäisen tason skillit ArrayListina.
- * @param heroName
- * @return ArrayList<Skill> 
- */
+	/**
+	 * Metodi hakee tietokannasta syötteenä saamansa nimen mukaisen heron kaikki ensimmäisen tason skillit ArrayListina.
+	 * @param heroName
+	 * @return ArrayList<Skill> 
+	 */
 	public static ArrayList<Skill> skillsOfAHeroByName(String heroName){
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
@@ -49,7 +55,6 @@ public class DotaBuddy {
 			System.out.println("Virhe: " + e);
 		}
 		return skill;
-
 	}
 
 	/**
@@ -312,45 +317,45 @@ public class DotaBuddy {
 	 * @param x
 	 * @return ArrayList<Skill>
 	 */
-		public static ArrayList<Skill> skillManacostSmallerThan(int x){
-			ArrayList<Skill> skill = new ArrayList<Skill>();
-			try{
-				Statement lause = kanta.createStatement();
-				String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Manacost <'"+ x+"';";
-				ResultSet tulos = lause.executeQuery(kysely);
-				while(tulos.next()){
-					skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
-				}
-				tulos.close();
-				lause.close();
-
-			}catch (Exception e){
-				System.out.println("Virhe: " + e);
+	public static ArrayList<Skill> skillManacostSmallerThan(int x){
+		ArrayList<Skill> skill = new ArrayList<Skill>();
+		try{
+			Statement lause = kanta.createStatement();
+			String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Manacost <'"+ x+"';";
+			ResultSet tulos = lause.executeQuery(kysely);
+			while(tulos.next()){
+				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
 			}
-			return skill;
-		}
+			tulos.close();
+			lause.close();
 
-		/**
-		 * Metodi hakee tietokannasta kaikki skillit, joiden manacost on suurempi kuin syöte, ArrayListina.
-		 * @param x
-		 * @return ArrayList<Skill>
-		 */
-		public static ArrayList<Skill> skillManacostBiggerThan(int x){
-			ArrayList<Skill> skill = new ArrayList<Skill>();
-			try{
-				Statement lause = kanta.createStatement();
-				String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Manacost >'"+ x +"';";
-				ResultSet tulos = lause.executeQuery(kysely);
-				while(tulos.next()){
-					skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
-				}
-				tulos.close();
-				lause.close();
-
-			}catch (Exception e){
-				System.out.println("Virhe: " + e);
-			}
-			return skill;
+		}catch (Exception e){
+			System.out.println("Virhe: " + e);
 		}
+		return skill;
 	}
+
+	/**
+	 * Metodi hakee tietokannasta kaikki skillit, joiden manacost on suurempi kuin syöte, ArrayListina.
+	 * @param x
+	 * @return ArrayList<Skill>
+	 */
+	public static ArrayList<Skill> skillManacostBiggerThan(int x){
+		ArrayList<Skill> skill = new ArrayList<Skill>();
+		try{
+			Statement lause = kanta.createStatement();
+			String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Manacost >'"+ x +"';";
+			ResultSet tulos = lause.executeQuery(kysely);
+			while(tulos.next()){
+				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
+			}
+			tulos.close();
+			lause.close();
+
+		}catch (Exception e){
+			System.out.println("Virhe: " + e);
+		}
+		return skill;
+	}
+}
 
