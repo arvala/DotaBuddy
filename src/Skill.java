@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Skill {
 	
 	private String name; //skillin nimi
@@ -17,6 +15,11 @@ public class Skill {
 		this.manacost = manacost;
 		this.cooldown = cooldown;
 		this.function = function;
+	}
+	
+	//lis‰‰ tietokantaan t‰m‰n Skill-olion
+	public void lisaaSkillTietokantaan(){
+		DotaBuddy.addSkill(this);
 	}
 	
 	//palauttaa skillin merkkijonoesityksen

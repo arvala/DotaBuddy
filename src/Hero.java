@@ -15,6 +15,11 @@ public class Hero {
 	public ArrayList<Skill> annaKaikkiSkillit(){
 		return DotaBuddy.skillsOfAHeroByID(id);
 	}
+	
+	//lis‰‰ tietokantaan t‰m‰n Skill-olion
+	public void lisaaHeroTietokantaan(){
+		DotaBuddy.addSkilluser(this);
+	}
 
 	//palauttaa heron merkkijonoesityksen
 	public String toString() {
