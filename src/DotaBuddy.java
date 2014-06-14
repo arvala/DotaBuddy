@@ -485,22 +485,22 @@ public class DotaBuddy {
 	
 	/**
 	 * Älykäs metodi skillin lisäämiseksi tietokantaan, joka generoi automaattisesti ID:n skillille
-	 * @param allLvlsOrNot
+	 * @param allLvlsOrNot ; true = kaikki levelit, false = 1 leveli
 	 * @param name
 	 * @param userId
 	 * @param maxlvl
-	 * @param aghs
+	 * @param aghs ; true = skillillä on Aghanim's Scepter upgrade, false = ei ole
 	 * @param manacost
 	 * @param cooldown
 	 * @param function
 	 */
 	public static void addSkillMagnificentVersion(Boolean allLvlsOrNot, String name, String userId, int maxlvl, boolean aghs, double manacost, double cooldown, String function){
 		String id = userId;
-		int skillejaEnnestaan = skillsOfAHeroByID(userId).size();
-		if(skillejaEnnestaan < 10){
-			id = id + 0 + skillejaEnnestaan;
+		int uusiSkillId = skillsOfAHeroByID(userId).size() + 1;
+		if(uusiSkillId < 10){
+			id = id + 0 + uusiSkillId;
 		}else{
-			id = id + skillejaEnnestaan;
+			id = id + uusiSkillId;
 		}
 		int silmukoita = 0;
 		if(allLvlsOrNot){
