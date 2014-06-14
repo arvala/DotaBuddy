@@ -5,6 +5,97 @@ public class DotaBuddy {
 
 	private static Connection kanta = null;
 
+	public static void main(String[] args){
+		alusta();
+		ArrayList<Skill> skill = new ArrayList<Skill>();
+
+		skill = skillsOfAHeroByName("Meepo");
+		for(int i = 0; i < skill.size(); i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		skill = skillsOfAHeroByID("156");
+		for(int i = 0; i < skill.size(); i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		skill = allSkillsOfAHeroByName("Drow Ranger");
+		for(int i = 0; i < skill.size(); i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		skill = allSkillsOfAHeroByID("361");
+		for(int i = 0; i < skill.size(); i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		ArrayList<Hero> hero = new ArrayList<Hero>();
+		hero = annaSTR();
+		for(int i = 0; i < 6; i++){
+			System.out.println(hero.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		hero = annaAGI();
+		for(int i = 0; i < 6; i++){
+			System.out.println(hero.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		hero = annaINT();
+		for(int i = 0; i < 6; i++){
+			System.out.println(hero.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		ArrayList<Item> item = new ArrayList<Item>();
+		item = annaITEM();
+		for(int i = 0; i < 6; i++){
+			System.out.println(item.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		hero = annaHerotSkillinFunktionMukaan("CC");
+		for(int i = 0; i < 6; i++){
+			System.out.println(hero.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		item = annaItemitSkillinFunktionMukaan("SUMMON");
+		for(int i = 0; i < item.size(); i++){
+			System.out.println(item.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		skill = skillCdLongerThan(25);
+		for(int i = 0; i < 6; i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		skill = skillCdShorterThan(14);
+		for(int i = 0; i < 6; i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		skill = skillManacostSmallerThan(20);
+		for(int i = 0; i < 6; i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+
+		skill = skillManacostBiggerThan(100);
+		for(int i = 0; i < 6; i++){
+			System.out.println(skill.get(i).toString());
+		}
+		sulje();
+	}
+
 	/**
 	 * Alustaa tietokantayhteyden.
 	 * @return Connection
