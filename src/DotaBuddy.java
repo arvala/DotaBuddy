@@ -33,10 +33,12 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT SKILL.Name, SKILL.Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = '"+heroName+"' AND SKILLUSER.ID = SKILL.UserID AND SKILL.ID LIKE '%1';";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = '"+heroName+"' AND SKILLUSER.ID = SKILL.UserID AND SKILL.ID LIKE '%1';";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-				skill.add(new Skill(tulos.getString(Name), tulos.getString(Function)));
+
+				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
+
 			}
 			tulos.close();
 			lause.close();
@@ -52,10 +54,10 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT SKILL.Name, SKILL.Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = '"+heroID+"' AND SKILLUSER.ID = SKILL.UserID AND SKILL.ID LIKE '%1';";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = '"+heroID+"' AND SKILLUSER.ID = SKILL.UserID AND SKILL.ID LIKE '%1';";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-				lause.add(new Skill(tulos.getString(Name), tulos.getString(Function)))
+				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
 			}
 			tulos.close();
 			lause.close();
@@ -71,10 +73,12 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, HERO WHERE HERO.Name = "+heroName+" AND HERO.ID = UserID;";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = "+heroName+" AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-				lause.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getString("Cooldown"), tulos.getString("Manacost"), tulos.getString("Function")))
+
+				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
+
 			}
 			tulos.close();
 			lause.close();
@@ -89,10 +93,12 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL, HERO WHERE HERO.ID = "+heroID+" AND HERO.ID = UserID;";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = "+heroID+" AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-				lause.add(new Skill(tulos.getString(Name), tulos.getString(ID), tulos.getString(UserID), tulos.getString(Cooldown), tulos.getString(Manacost), tulos.getString(Function)));
+
+				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
+
 			}
 			tulos.close();
 			lause.close();
@@ -219,7 +225,7 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Cooldown >'"+ x+"'";";
+			String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Cooldown >'"+ x+"';";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
 				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
@@ -237,7 +243,7 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Cooldown <'" +x+"'";";
+			String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Cooldown <'" +x+"';";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
 				skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
@@ -254,7 +260,7 @@ public class DotaBuddy {
 			ArrayList<Skill> skill = new ArrayList<Skill>();
 			try{
 				Statement lause = kanta.createStatement();
-				String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Manacost <'"+ x+"'";";
+				String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL WHERE Manacost <'"+ x+"';";
 				ResultSet tulos = lause.executeQuery(kysely);
 				while(tulos.next()){
 					skill.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getDouble("Manacost"), tulos.getDouble("Cooldown"), tulos.getString("Function")));
