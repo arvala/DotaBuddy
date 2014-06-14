@@ -497,6 +497,42 @@ public class DotaBuddy {
 	}
 	
 	/**
+	 * Älykäs metodi skillin lisäämiseksi tietokantaan, joka generoi automaattisesti ID:n skillille
+	 * @param allLvlsOrNot
+	 * @param name
+	 * @param userId
+	 * @param maxlvl
+	 * @param aghs
+	 * @param manacost
+	 * @param cooldown
+	 * @param function
+	 */
+	public static void addSkillMagnificentVersion(Boolean allLvlsOrNot, String name, String userId, int maxlvl, boolean aghs, double manacost, double cooldown, String function){
+		String id = userId;
+		int skillejaEnnestaan = skillsOfAHeroByID(userId).size();
+		if(skillejaEnnestaan < 10){
+			id = id + 0 + skillejaEnnestaan;
+		}else{
+			id = id + skillejaEnnestaan;
+		}
+		int silmukoita = 0;
+		if(allLvlsOrNot){
+			if(aghs){
+				silmukoita = maxlvl*2;
+			}else{
+				silmukoita = maxlvl;
+			}
+		}else{
+			silmukoita = 1;
+		}
+		for(int i = 0; i < silmukoita; i++){
+			int tempIdNumber = i + 1;
+			String tempId = id + tempIdNumber;
+			addSkill(name, tempId, userId, manacost, cooldown, function);
+		}
+	}
+	
+	/**
 	 * Metodi lisää tietokantaan Skillin kutsumalla toista addSkill-metodia
 	 * @param name
 	 * @param id
