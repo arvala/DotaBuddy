@@ -12,7 +12,7 @@ public class DotaBuddy {
 			String kysely = "SELECT SKILL.Name, SKILL.Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = '"+heroName+"' AND SKILLUSER.ID = SKILL.UserID AND SKILL.ID LIKE '%1';";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-				lause.add(new Skill(tulos.getString(Name), tulos.getString(Function)))
+				skill.add(new Skill(tulos.getString(Name), tulos.getString(Function)));
 			}
 			tulos.close();
 			lause.close();
@@ -50,7 +50,7 @@ public class DotaBuddy {
 			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, HERO WHERE HERO.Name = "+heroName+" AND HERO.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-				lause.add(new Skill(tulos.getString(Name), tulos.getString(ID), tulos.getString(UserID), tulos.getString(Cooldown), tulos.getString(Manacost), tulos.getString(Function)))
+				lause.add(new Skill(tulos.getString("Name"), tulos.getString("ID"), tulos.getString("UserID"), tulos.getString("Cooldown"), tulos.getString("Manacost"), tulos.getString("Function")))
 			}
 			tulos.close();
 			lause.close();
@@ -68,7 +68,7 @@ public class DotaBuddy {
 			String kysely = "SELECT Name, ID, UserID, Cooldown, Manacost, Function FROM SKILL, HERO WHERE HERO.ID = "+heroID+" AND HERO.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
-				lause.add(new Skill(tulos.getString(Name), tulos.getString(ID), tulos.getString(UserID), tulos.getString(Cooldown), tulos.getString(Manacost), tulos.getString(Function)))
+				lause.add(new Skill(tulos.getString(Name), tulos.getString(ID), tulos.getString(UserID), tulos.getString(Cooldown), tulos.getString(Manacost), tulos.getString(Function)));
 			}
 			tulos.close();
 			lause.close();
