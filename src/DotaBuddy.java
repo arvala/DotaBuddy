@@ -3,6 +3,9 @@ import java.sql.*;
 
 public class DotaBuddy {
 
+	/**
+	 * Yhteys tietokantaan
+	 */
 	private static Connection kanta = null;
 
 	public static void main(String[] args){
@@ -103,7 +106,8 @@ public class DotaBuddy {
 	public static Connection alusta() {
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
-			kanta = DriverManager.getConnection("jdbc:postgresql:Dota2Database", "postgres", "kuolematonjumala");
+
+			kanta = DriverManager.getConnection("jdbc:postgresql:Dota2Database", "postgres", "admin");
 		}
 		catch (Exception e) {
 			System.out.println("Virhe tietokantakerroksessa: " + e);
@@ -180,7 +184,7 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = "+heroName+" AND SKILLUSER.ID = UserID;";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = '"+heroName+"' AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
 
@@ -205,7 +209,7 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Manacost, Cooldown, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = "+heroID+" AND SKILLUSER.ID = UserID;";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Manacost, Cooldown, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = '"+heroID+"' AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
 
@@ -447,6 +451,114 @@ public class DotaBuddy {
 			System.out.println("Virhe: " + e);
 		}
 		return skill;
+	}
+	
+	/**
+	 * Metodi lis‰‰ tietokantaan Skilluserin kutsumalla toista addSkilluser-metodia
+	 * @param name
+	 * @param id
+	 */
+	public static void addSkilluser(String name, String id){
+		int idarvo = Integer.parseInt(id);
+		if(idarvo < 400){
+			addSkilluser(new Hero(name, id));
+		}else{
+			addSkilluser(new Item(name, id));
+		}
+	}
+	
+	/**
+	 * Metodi lis‰‰ tietokantaan Skilluserin
+	 * @param hero
+	 */
+	public static void addSkilluser(Hero hero){
+		try{
+			Statement lause = kanta.createStatement();
+			String kysely = "INSERT INTO SKILLUSER (Name, ID) VALUES ('" + hero.getName() + "', '" + hero.getId() + "');";
+			lause.executeUpdate(kysely);
+			lause.close();
+		}catch (Exception e){
+			System.out.println("Virhe: " + e);
+		}
+	}
+	
+	/**
+	 * Metodi lis‰‰ tietokantaan Skilluserin
+	 * @param item
+	 */
+	public static void addSkilluser(Item item){
+		try{
+			Statement lause = kanta.createStatement();
+			String kysely = "INSERT INTO SKILLUSER (Name, ID) VALUES ('" + item.getName() + "', '" + item.getId() + "');";
+			lause.executeUpdate(kysely);
+			lause.close();
+		}catch (Exception e){
+			System.out.println("Virhe: " + e);
+		}
+	}
+	
+	/**
+	 * ƒlyk‰s metodi skillin lis‰‰miseksi tietokantaan, joka generoi automaattisesti ID:n skillille
+	 * @param allLvlsOrNot
+	 * @param name
+	 * @param userId
+	 * @param maxlvl
+	 * @param aghs
+	 * @param manacost
+	 * @param cooldown
+	 * @param function
+	 */
+	public static void addSkillMagnificentVersion(Boolean allLvlsOrNot, String name, String userId, int maxlvl, boolean aghs, double manacost, double cooldown, String function){
+		String id = userId;
+		int skillejaEnnestaan = skillsOfAHeroByID(userId).size();
+		if(skillejaEnnestaan < 10){
+			id = id + 0 + skillejaEnnestaan;
+		}else{
+			id = id + skillejaEnnestaan;
+		}
+		int silmukoita = 0;
+		if(allLvlsOrNot){
+			if(aghs){
+				silmukoita = maxlvl*2;
+			}else{
+				silmukoita = maxlvl;
+			}
+		}else{
+			silmukoita = 1;
+		}
+		for(int i = 0; i < silmukoita; i++){
+			int tempIdNumber = i + 1;
+			String tempId = id + tempIdNumber;
+			addSkill(name, tempId, userId, manacost, cooldown, function);
+		}
+	}
+	
+	/**
+	 * Metodi lis‰‰ tietokantaan Skillin kutsumalla toista addSkill-metodia
+	 * @param name
+	 * @param id
+	 * @param userId
+	 * @param manacost
+	 * @param cooldown
+	 * @param function
+	 */
+	public static void addSkill(String name, String id, String userId, Double manacost, Double cooldown, String function){
+		addSkill(new Skill(name, id, userId, manacost, cooldown, function));
+	}
+	
+	/**
+	 * Metodia lis‰‰ tietokantaan Skillin
+	 * @param skill
+	 */
+	public static void addSkill(Skill skill){
+		try{
+			Statement lause = kanta.createStatement();
+			String kysely = "INSERT INTO SKILL (Name, ID, UserID, Cooldown, Manacost, Function) VALUES ('" + skill.getName() + "', '" + skill.getId() + "', '" + skill.getUserId() + "', '" + skill.getCooldown() + "', '" + skill.getManacost() + "', '" + skill.getFunction() + "');";
+			lause.executeUpdate(kysely);
+			lause.close();
+		}catch (Exception e){
+			System.out.println("Virhe: " + e);
+		}
 	}
 }
 
