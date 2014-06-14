@@ -1,7 +1,5 @@
 import java.sql.Statement;
 import java.util.ArrayList;
-
-
 import java.sql.*;
 public class DotaBuddy {
 
@@ -28,7 +26,11 @@ public class DotaBuddy {
 	}
 	
 
-
+/**
+ * Metodi hakee tietokannasta syötteenä saamansa nimen mukaisen heron kaikki ensimmäisen tason skillit ArrayListina.
+ * @param heroName
+ * @return ArrayList<Skill> 
+ */
 	public static ArrayList<Skill> skillsOfAHeroByName(String heroName){
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
@@ -50,6 +52,11 @@ public class DotaBuddy {
 
 	}
 
+	/**
+	 * Metodi hakee tietokannasta syötteenä saamansa ID:n mukaisen heron kaikki ensimmäisen tason skillit ArrayListina.
+	 * @param heroID
+	 * @return ArrayList<Skill>
+	 */
 	public static ArrayList<Skill> skillsOfAHeroByID(String heroID){
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
@@ -68,7 +75,11 @@ public class DotaBuddy {
 		return skill;
 	}
 
-
+	/**
+	 * Metodi hakee tietokannasta syötteenä saamansa nimen mukaisen heron kaikki skillit ArrayListina.
+	 * @param heroID
+	 * @return ArrayList<Skill>
+	 */
 	public static ArrayList<Skill> allSkillsOfAHeroByName(String heroName){
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
@@ -89,11 +100,16 @@ public class DotaBuddy {
 		return skill;
 	}
 
+	/**
+	 * Metodi hakee tietokannasta syötteenä saamansa ID:n mukaisen heron kaikki skillit ArrayListina.
+	 * @param heroID
+	 * @return ArrayList<Skill>
+	 */
 	public static ArrayList<Skill> allSkillsOfAHeroByID(String heroID){
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = "+heroID+" AND SKILLUSER.ID = UserID;";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Manacost, Cooldown, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = "+heroID+" AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
 
@@ -109,6 +125,10 @@ public class DotaBuddy {
 		return skill;
 	}
 
+	/**
+	 * Metodi hakee tietokannasta kaikki Strength-tyypin herojen nimet ja ID:t ArrayListina.
+	 * @return ArrayList<Hero>
+	 */
 	public static ArrayList<Hero> annaSTR(){
 		ArrayList<Hero> strHerot = new ArrayList<Hero>();
 		try{
@@ -127,6 +147,10 @@ public class DotaBuddy {
 		return strHerot;
 	}
 
+	/**
+	 * Metodi hakee tietokannasta kaikki Agility-tyypin herojen nimet ja ID:t ArrayListina.
+	 * @return ArrayList<Hero>
+	 */
 	public static ArrayList<Hero> annaAGI(){
 		ArrayList<Hero> agiHerot = new ArrayList<Hero>();
 		try{
@@ -145,6 +169,10 @@ public class DotaBuddy {
 		return agiHerot;
 	}
 
+	/**
+	 * Metodi hakee tietokannasta kaikki Intelligence-tyypin herojen nimet ja ID:t ArrayListina.
+	 * @return ArrayList<Hero>
+	 */
 	public static ArrayList<Hero> annaINT(){
 		ArrayList<Hero> intHerot = new ArrayList<Hero>();
 		try{
@@ -163,6 +191,10 @@ public class DotaBuddy {
 		return intHerot;
 	}
 
+	/**
+	 * Metodi hakee tietokannasta kaikki Itemien nimet ja ID:t ArrayListina.
+	 * @return ArrayList<Hero>
+	 */
 	public static ArrayList<Item> annaITEM(){
 		ArrayList<Item> itemit = new ArrayList<Item>();
 		try{
@@ -181,7 +213,11 @@ public class DotaBuddy {
 		return itemit;
 	}
 
-
+	/**
+	 * Metodi hakee tietokannasta kaikki tietyn funktion(CC, SUMMON, DAMAGE, UTILITY) omaavan skillin omaavat herot ArrayListina.
+	 * @param funktio
+	 * @return ArrayList<Hero>
+	 */
 	public static ArrayList<Hero> annaHerotSkillinFunktionMukaan(String funktio){
 		ArrayList<Hero> herot = new ArrayList<Hero>();
 		try{
@@ -201,7 +237,11 @@ public class DotaBuddy {
 		return herot;
 	}
 
-
+	/**
+	 * Metodi hakee tietokannasta kaikki tietyn funktion(CC, SUMMON, DAMAGE, UTILITY) omaavan skillin omaavat itemit ArrayListina.
+	 * @param funktio
+	 * @return ArrayList<Item>
+	 */
 	public static ArrayList<Item> annaItemitSkillinFunktionMukaan(String funktio){
 		ArrayList<Item> itemit = new ArrayList<Item>();
 		try{
@@ -221,6 +261,11 @@ public class DotaBuddy {
 		return itemit;
 	}
 
+	/**
+	 * Metodi hakee tietokannasta kaikki skillit, joiden cooldown on pidempi kuin syöte, ArrayListina.
+	 * @param x
+	 * @return ArrayList<Skill>
+	 */
 	public static ArrayList<Skill> skillCdLongerThan(int x){
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
@@ -239,6 +284,11 @@ public class DotaBuddy {
 		return skill;
 	}
 
+	/**
+	 * Metodi hakee tietokannasta kaikki skillit, joiden cooldown on lyhyempi kuin syöte, ArrayListina.
+	 * @param x
+	 * @return ArrayList<Skill>
+	 */
 	public static ArrayList<Skill> skillCdShorterThan(int x){
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
@@ -257,6 +307,11 @@ public class DotaBuddy {
 		return skill;
 	}
 
+	/**
+	 * Metodi hakee tietokannasta kaikki skillit, joiden manacost on pienempi kuin syöte, ArrayListina.
+	 * @param x
+	 * @return ArrayList<Skill>
+	 */
 		public static ArrayList<Skill> skillManacostSmallerThan(int x){
 			ArrayList<Skill> skill = new ArrayList<Skill>();
 			try{
@@ -276,6 +331,11 @@ public class DotaBuddy {
 
 		}
 
+		/**
+		 * Metodi hakee tietokannasta kaikki skillit, joiden manacost on suurempi kuin syöte, ArrayListina.
+		 * @param x
+		 * @return ArrayList<Skill>
+		 */
 		public static ArrayList<Skill> skillManacostBiggerThan(int x){
 			ArrayList<Skill> skill = new ArrayList<Skill>();
 			try{
