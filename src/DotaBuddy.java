@@ -8,7 +8,7 @@ public class DotaBuddy {
 	public static Connection alusta() {
 		try {
 			Class.forName("org.postgresql.Driver").newInstance();
-			kanta = DriverManager.getConnection("jdbc:postgresql:Dota2", "postgres", "admin");
+			kanta = DriverManager.getConnection("jdbc:postgresql:Dota2Database", "postgres", "admin");
 		}
 		catch (Exception e) {
 			System.out.println("Virhe tietokantakerroksessa: " + e);
@@ -25,6 +25,98 @@ public class DotaBuddy {
 		}
 	}
 	
+	public static void main(String[] args){
+		alusta();
+		ArrayList<Skill> skill = new ArrayList<Skill>();
+		
+		skill = skillsOfAHeroByName("Meepo");
+		for(int i = 0; i < skill.size(); i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		skill = skillsOfAHeroByID("156");
+		for(int i = 0; i < skill.size(); i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		skill = allSkillsOfAHeroByName("Drow Ranger");
+		for(int i = 0; i < skill.size(); i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		skill = allSkillsOfAHeroByID("361");
+		for(int i = 0; i < skill.size(); i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		ArrayList<Hero> hero = new ArrayList<Hero>();
+		hero = annaSTR();
+		for(int i = 0; i < 6; i++){
+			System.out.println(hero.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		hero = annaAGI();
+		for(int i = 0; i < 6; i++){
+			System.out.println(hero.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		hero = annaINT();
+		for(int i = 0; i < 6; i++){
+			System.out.println(hero.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		ArrayList<Item> item = new ArrayList<Item>();
+		item = annaITEM();
+		for(int i = 0; i < 6; i++){
+			System.out.println(item.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		hero = annaHerotSkillinFunktionMukaan("CC");
+		for(int i = 0; i < 6; i++){
+			System.out.println(hero.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		item = annaItemitSkillinFunktionMukaan("SUMMON");
+		for(int i = 0; i < item.size(); i++){
+			System.out.println(item.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		skill = skillCdLongerThan(25);
+		for(int i = 0; i < 6; i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		skill = skillCdShorterThan(14);
+		for(int i = 0; i < 6; i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		skill = skillManacostSmallerThan(20);
+		for(int i = 0; i < 6; i++){
+			System.out.println(skill.get(i).toString());
+		}
+		System.out.println("-------------------------");
+		
+		skill = skillManacostBiggerThan(100);
+		for(int i = 0; i < 6; i++){
+			System.out.println(skill.get(i).toString());
+		}
+		
+		sulje();
+		
+	}
 
 /**
  * Metodi hakee tietokannasta syötteenä saamansa nimen mukaisen heron kaikki ensimmäisen tason skillit ArrayListina.
@@ -84,7 +176,7 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = "+heroName+" AND SKILLUSER.ID = UserID;";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Cooldown, Manacost, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.Name = '"+heroName+"' AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
 
@@ -109,7 +201,7 @@ public class DotaBuddy {
 		ArrayList<Skill> skill = new ArrayList<Skill>();
 		try{
 			Statement lause = kanta.createStatement();
-			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Manacost, Cooldown, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = "+heroID+" AND SKILLUSER.ID = UserID;";
+			String kysely = "SELECT SKILL.Name, SKILL.ID, UserID, Manacost, Cooldown, Function FROM SKILL, SKILLUSER WHERE SKILLUSER.ID = '"+heroID+"' AND SKILLUSER.ID = UserID;";
 			ResultSet tulos = lause.executeQuery(kysely);
 			while(tulos.next()){
 
